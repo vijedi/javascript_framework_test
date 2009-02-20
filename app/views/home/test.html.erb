@@ -3,6 +3,13 @@
 <html xmlns="http://www.w3.org/1999/xhtml" xmlns:app="http://www.appcelerator.org/">
     <head>
         <title>Test <%=@framework_name%></title>
+        
+        <style type="text/css">
+            th {text-align: left; width: 171;}
+            tr {border-bottom: 1px solid #333;}
+            .style43 {color: red}
+        </style>
+        
         <script type="text/javascript">
             APP_TIMERS = {};
             APP_TIMERS.START_TIMER = new Date();
@@ -20,8 +27,9 @@
                 document.getElementById('total_time').innerHTML = (new Date() - APP_TIMERS.START_TIMER);
             }
         </script>
+
     </head>
-    <body>
+    <body style="background-color: rgb(255,250,232)">
         <%= render :partial => "#{@framework_name}_test" %>
         <h3><%=@framework_name%></h3>
         <table>

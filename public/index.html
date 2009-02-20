@@ -1,22 +1,37 @@
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
         "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html>
-  <head>
-    <meta http-equiv="Content-type" content="text/html; charset=utf-8" />
-    <title>Test the speed of javascript frameworks</title>
+    <head>
+        <meta http-equiv="Content-type" content="text/html; charset=utf-8" />
+        <title>Test the speed of javascript frameworks</title>
+        <style type="text/css">
+            body {background-color: rgb(168, 200, 255);}
+            iframe {background-color: white}
+            a {font-weight: bold; color: #333}
+            a:visited {color: #333}
+            a:hover {color: rgb(153, 151, 78)}
+            div.test {padding: 40px}
+            h2 {color: #333}
+        </style>
+    </head>
+    <body>
+        <h2>Simple Benchmarks for different frameworks</h2>
+        <div class="test">
+            <div><a href="/home/prototypejs" target="prototype_frame">Run Test for PrototypeJS</a></div>
+            <iframe src="#" name="prototype_frame" style="border: 1px solid #999; width: 800px; height: 400px"></iframe>
+        </div>
+        <div class="test">
+            <div><a href="/home/jquery" target="jquery_frame">Run Test for Jquery</a></div>
+            <iframe src="#"  name="jquery_frame" style="border: 1px solid #999; width: 800px; height: 400px"></iframe>
+        </div>
+        <div class="test">
+            <div><a href="/home/mootools" target="mootools_frame">Run Test for Mootools</a></div>
+            <iframe  src="#" name="mootools_frame" style="border: 1px solid #999; width: 800px; height: 400px"></iframe>
+        </div>
+        <div class="test">
+            <div><a href="/home/appcelerator" target="appcelerator_frame">Run Test for Appcelerator</a></div>
+            <iframe src="#"  name="appcelerator_frame" style="border: 1px solid #999; width: 800px; height: 400px"></iframe>
+        </div>
 
-  </head>
-  <body>
-      <div>
-          <iframe name="test_frame" style="border: 1px solid #999; width: 800px; height: 400px">
-
-          </iframe>
-      </div>
-    <a href="/home/prototypejs" target="test_frame">PrototypeJS</a>
-    <a href="/home/jquery" target="test_frame">JQuery</a>
-    <a href="/home/mootools" target="test_frame">Mootools</a>
-    <a href="/home/appcelerator" target="test_frame">Appcelerator</a>
-    
-
-  </body>
+    </body>
 </html>
