@@ -38,4 +38,8 @@ class HomeController < ApplicationController
     def senate_appcelerator
         
     end
+    
+    def blank
+        
+    end
 end
