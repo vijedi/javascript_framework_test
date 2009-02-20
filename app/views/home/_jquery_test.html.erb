@@ -1,0 +1,15 @@
+<script type="text/javascript">
+    $(document).ready(function(){
+        APP_TIMERS.DOM_LOADED = new Date();
+        $.get("/home/big_table", function(data){
+            $('#large_file_location').html(data);
+            APP_TIMERS.BIG_FILE_LOADED = new Date();
+            APP_TIMERS.finish_test();
+        });
+    });
+    
+</script>
+
+<div id="large_file_location" style="display: none">
+    
+</div>

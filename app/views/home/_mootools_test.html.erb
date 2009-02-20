@@ -1,0 +1,15 @@
+<script type="text/javascript">
+   window.addEvent('domready', function(){
+        APP_TIMERS.DOM_LOADED = new Date();
+        new Request.HTML({update: 'large_file_location', onSuccess: function(){
+                APP_TIMERS.BIG_FILE_LOADED = new Date();
+                APP_TIMERS.finish_test();
+            }
+        }).get('/home/big_table');
+    });
+    
+</script>
+
+<div id="large_file_location" style="display: none">
+    
+</div>

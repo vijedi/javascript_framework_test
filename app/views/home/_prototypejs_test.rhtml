@@ -1,0 +1,50 @@
+<script type="text/javascript">
+    
+    function load_crazy_big_file() {
+        new Ajax.Updater('crazy_large_file', '/home/big_table', {
+            onComplete: function(transport) {
+                APP_TIMERS.CRAZY_LARGE_FILE_LOADED = new Date();
+                APP_TIMERS.finish_test();
+            }
+        });
+    }
+    
+    function load_dynamic_large_file() {
+        new Ajax.Updater('dynamic_large_file_location', '/home/senate', {
+            onComplete: function(transport) {
+                var elements = $('dynamic_large_file_location').select('.style43');
+                for( var i = 0, length = elements.length; i < length; i++) {
+                    elements[i].observe('click', function() {
+                        alert('worked');
+                    });
+                }
+                APP_TIMERS.BIG_DYNAMIC_FILE_LOADED = new Date();
+                load_crazy_big_file();
+            }
+        });
+    }
+    
+    Event.observe(window, 'load', function() {
+        APP_TIMERS.DOM_LOADED = new Date();
+        new Ajax.Updater('large_file_location', '/home/presidential', { 
+                onComplete: function(transport) {
+                    APP_TIMERS.BIG_FILE_LOADED = new Date();
+                    load_dynamic_large_file();
+                }
+            }
+        );
+    });
+    
+</script>
+
+<div id="large_file_location" style="display: none">
+    
+</div>
+
+<div id="dynamic_large_file_location" style="width: 100%; height: 200px; overflow-y: scroll">
+    Will be replaced with table
+</div>
+
+<div id="crazy_large_file" style="display: none">
+    
+</div>
