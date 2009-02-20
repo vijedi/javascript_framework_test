@@ -17,6 +17,18 @@
     <body>
         <h2>Simple Benchmarks for different frameworks</h2>
         <div class="test">
+            <p>
+                This pretty simple test attempts to measure the time it takes to load the framework and do some basic tasks. 
+                The first is to load the page with the <a href="http://www.w3.org/TR/2001/CR-css3-selectors-20011113/">W3C css selector</a> page 
+                pre-loaded into a hidden div.  It then dynamically loads in the <a href="http://sos.georgia.gov/elections/election_results/2008_1104/001.htm">Georgia 2008 Presidential election results</a>, again in a hidden div.  
+                Next it loads in the 
+                <a href="http://sos.georgia.gov/elections/election_results/2008_1104/003.htm">Georgia 2008 Senate</a> results and attaches a 
+                click event to all the <span style="color: red">red</span> elements.  Finally,
+                it loads in the <a href="http://sos.georgia.gov/elections/election_results/2008_1104/swall.htm">Georgia 2008 election summary.</a>
+                All files are served from the local server to avoid mistimes due to network latency.
+            </p>
+        </div>
+        <div class="test">
             <div><a href="/home/prototypejs" target="prototype_frame">Run Test for PrototypeJS</a></div>
             <iframe src="#" name="prototype_frame" style="border: 1px solid #999; width: 800px; height: 400px"></iframe>
         </div>
