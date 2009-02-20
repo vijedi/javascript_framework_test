@@ -3,13 +3,41 @@
         APP_TIMERS.DOM_LOADED = new Date();
         new Request.HTML({update: 'large_file_location', onSuccess: function(){
                 APP_TIMERS.BIG_FILE_LOADED = new Date();
+                load_dynamic_large_file();
+            }
+        }).get('/home/presidential');
+    });
+    
+    function load_dynamic_large_file() {
+        new Request.HTML({update: 'dynamic_large_file_location', onSuccess: function(){
+                APP_TIMERS.BIG_DYNAMIC_FILE_LOADED = new Date();
+                $('dynamic_large_file_location').getElements('.style43').addEvents({
+                    'click': function(){
+                        alert("you clicked?");
+                    }
+                });
+                load_crazy_big_file();
+            }
+        }).get('/home/senate');
+    }
+    
+    function load_crazy_big_file() {
+        new Request.HTML({update: 'crazy_large_file', onSuccess: function(){
+                APP_TIMERS.CRAZY_LARGE_FILE_LOADED = new Date();
                 APP_TIMERS.finish_test();
             }
         }).get('/home/big_table');
-    });
-    
+    }
 </script>
 
 <div id="large_file_location" style="display: none">
+    
+</div>
+
+<div id="dynamic_large_file_location" style="width: 100%; height: 200px; overflow-y: scroll">
+    Will be replaced with table
+</div>
+
+<div id="crazy_large_file" style="display: none">
     
 </div>

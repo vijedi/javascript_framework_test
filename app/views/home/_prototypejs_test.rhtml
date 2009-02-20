@@ -1,13 +1,14 @@
 <script type="text/javascript">
-    
-    function load_crazy_big_file() {
-        new Ajax.Updater('crazy_large_file', '/home/big_table', {
-            onComplete: function(transport) {
-                APP_TIMERS.CRAZY_LARGE_FILE_LOADED = new Date();
-                APP_TIMERS.finish_test();
+    Event.observe(window, 'load', function() {
+        APP_TIMERS.DOM_LOADED = new Date();
+        new Ajax.Updater('large_file_location', '/home/presidential', { 
+                onComplete: function(transport) {
+                    APP_TIMERS.BIG_FILE_LOADED = new Date();
+                    load_dynamic_large_file();
+                }
             }
-        });
-    }
+        );
+    });
     
     function load_dynamic_large_file() {
         new Ajax.Updater('dynamic_large_file_location', '/home/senate', {
@@ -24,16 +25,14 @@
         });
     }
     
-    Event.observe(window, 'load', function() {
-        APP_TIMERS.DOM_LOADED = new Date();
-        new Ajax.Updater('large_file_location', '/home/presidential', { 
-                onComplete: function(transport) {
-                    APP_TIMERS.BIG_FILE_LOADED = new Date();
-                    load_dynamic_large_file();
-                }
+    function load_crazy_big_file() {
+        new Ajax.Updater('crazy_large_file', '/home/big_table', {
+            onComplete: function(transport) {
+                APP_TIMERS.CRAZY_LARGE_FILE_LOADED = new Date();
+                APP_TIMERS.finish_test();
             }
-        );
-    });
+        });
+    }
     
 </script>
 

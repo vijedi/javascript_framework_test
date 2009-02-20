@@ -1,15 +1,41 @@
 <script type="text/javascript">
     $(document).ready(function(){
         APP_TIMERS.DOM_LOADED = new Date();
-        $.get("/home/big_table", function(data){
+        $.get("/home/presidential", function(data){
             $('#large_file_location').html(data);
             APP_TIMERS.BIG_FILE_LOADED = new Date();
-            APP_TIMERS.finish_test();
+            load_dynamic_large_file();
         });
     });
     
+    function load_dynamic_large_file() {
+        $.get("/home/senate", function(data){
+            $('#dynamic_large_file_location').html(data);
+            $('#dynamic_large_file_location .style43').bind('click', function() {alert("you clicked?");})
+            APP_TIMERS.BIG_DYNAMIC_FILE_LOADED = new Date();
+            load_crazy_big_file();
+        });
+    }
+    
+    function load_crazy_big_file() {
+        $.get("/home/big_table", function(data){
+            $('#crazy_large_file').html(data);
+            APP_TIMERS.CRAZY_LARGE_FILE_LOADED = new Date();
+            APP_TIMERS.finish_test();
+        });
+    }
 </script>
 
 <div id="large_file_location" style="display: none">
     
 </div>
+
+<div id="dynamic_large_file_location" style="width: 100%; height: 200px; overflow-y: scroll">
+    Will be replaced with table
+</div>
+
+<div id="crazy_large_file" style="display: none">
+    
+</div>
+
+
