@@ -27,6 +27,12 @@
                 it loads in the <a href="http://sos.georgia.gov/elections/election_results/2008_1104/swall.htm">Georgia 2008 election summary.</a>
                 All files are served from the local server to avoid mistimes due to network latency.
             </p>
+            <p>
+                Because of the way Appcelerator works, instead of using a selector to attach an event, I've created
+                a different version of the "dynamic" html file with "on" expressions set for the red elements.  I 
+                feel this test is more fair, since there's no reason to select through the dom when Appcelerator
+                processes each element by default.
+            </p>
         </div>
         <div class="test">
             <div><a href="/home/prototypejs" target="prototype_frame">Run Test for PrototypeJS</a></div>

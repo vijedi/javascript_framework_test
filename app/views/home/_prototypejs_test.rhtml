@@ -1,5 +1,5 @@
 <script type="text/javascript">
-    Event.observe(window, 'load', function() {
+    Event.observe(window, 'dom:loaded', function() {
         APP_TIMERS.DOM_LOADED = new Date();
         new Ajax.Updater('large_file_location', '/home/presidential', { 
                 onComplete: function(transport) {
