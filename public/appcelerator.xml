@@ -1,11 +1,13 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
 <appcelerator version="1.0" xmlns="http://www.appcelerator.org/config">
-	<servicebroker poll="false" marshaller="application/json" disabled="true">@{rootPath}servicebroker</servicebroker>
-	<upload>@{rootPath}upload</upload>
-	<download>@{rootPath}download</download>
+    <servicebroker poll="false" marshaller="application/json">@{rootPath}servicebroker</servicebroker>
+    <upload>@{rootPath}upload</upload>
+    <download>@{rootPath}download</download>
     <proxy>@{rootPath}proxy</proxy>
-	<sessionid>SESSIONID</sessionid>
+    <sessionid>_myruby_session</sessionid>
     <language>ruby</language>
     <service>rails</service>
+    <aid>b383b310-e742-012b-a37e-001b639338ac</aid>
+    <sid></sid>
 </appcelerator>
