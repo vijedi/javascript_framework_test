@@ -1,20 +1,23 @@
-
 /*
- * Copyright 2006-2008 Appcelerator, Inc.
+ * This file is part of Appcelerator.
+ *
+ * Copyright (C) 2006-2008 by Appcelerator, Inc. All Rights Reserved.
+ * For more information, please visit http://www.appcelerator.org
+ *
+ * Appcelerator is free software: you can redistribute it and/or modify
+ * it under the terms of the GNU General Public License as published by
+ * the Free Software Foundation, either version 3 of the License, or
+ * (at your option) any later version.
+ *
+ * This program is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ * GNU General Public License for more details.
  * 
- * Licensed under the Apache License, Version 2.0 (the "License");
- * you may not use this file except in compliance with the License.
- * You may obtain a copy of the License at
- * 
- *    http://www.apache.org/licenses/LICENSE-2.0
- * 
- * Unless required by applicable law or agreed to in writing, software
- * distributed under the License is distributed on an "AS IS" BASIS,
- * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
- * See the License for the specific language governing permissions and
- * limitations under the License. 
+ * You should have received a copy of the GNU General Public License
+ * along with this program.  If not, see <http://www.gnu.org/licenses/>.
+ *
  */
-
 
 
 Appcelerator.Widget.Content =
@@ -29,7 +32,7 @@ Appcelerator.Widget.Content =
 	},
 	getVersion: function()
 	{
-		return '__VERSION__';
+		return '1.0.2';
 	},
 	getSpecVersion: function()
 	{
@@ -66,7 +69,7 @@ Appcelerator.Widget.Content =
 				 description: "Used to replace text in the content file."},
 				{name: 'lazy', optional: true, defaultValue: 'false', type: T.bool,
 				 description: "Indicates whether the content file should be lazy loaded."},
-				{name: 'reload', optional: true, defaultValue: 'true', type: T.bool,
+				{name: 'reload', optional: true, defaultValue: 'false', type: T.bool,
 				 description: "Indicates whether the content file should be refetched and reloaded on every execute. If false, execute will do nothing if already executed."},
 				{name: 'onload', optional: true, type: T.messageSend,
 				 description: "Fire this message when content file is loaded."},
@@ -74,7 +77,7 @@ Appcelerator.Widget.Content =
 				 description: "Fire this message when content file is fetched but before being loaded."},
  				{name: 'property', optional: true, type: T.messageSend,
  				 description: "The name of the property in the message payload to be used for the src"},
-				{name:'useframe', optional: true, defaultValue: 'true', type: T.bool, 
+				{name:'useframe', optional: true, defaultValue: 'false', type: T.bool, 
 				 description: "Use a hidden iframe when fetching the content, instead of an Ajax request. This is normally not required."}
 		];
 	},
@@ -84,8 +87,12 @@ Appcelerator.Widget.Content =
 	    {
 	        parameterMap['src'] = data[parameterMap['property']];
 	    }
-		if (!parameterMap['reload'])
+		Logger.info('parameterMap[reload] = '+parameterMap['reload']);
+	    
+		if (!parameterMap['reload'] || parameterMap['reload'] == 'false')
 		{
+			Logger.info('fetched = '+$(id).fetched);
+			Logger.info('parameterMap[fetched] = '+parameterMap['fetched']);
 			if (!$(id).fetched && !parameterMap['fetched'])
 			{
 				Appcelerator.Widget.Content.fetch(id,parameterMap['src'],parameterMap['args'],parameterMap['onload'],parameterMap['onfetch'],parameterMap['useframe']);
@@ -120,7 +127,7 @@ Appcelerator.Widget.Content =
         target = $(target);
         target.style.visibility='hidden';
 
-		if (useframe != 'true')
+		if (!useframe || useframe == 'false')
 		{
 			new Ajax.Request(src,
 			{
@@ -134,7 +141,6 @@ Appcelerator.Widget.Content =
 					}
 					var scope = target.getAttribute('scope') || target.scope;
 					var state = Appcelerator.Compiler.createCompilerState();
-					target.state = state;
 					var html = resp.responseText.stripScripts();
 					var match = /<body[^>]*>([\s\S]*)?<\/body>/mg.exec(html);
 					if (match)
@@ -163,7 +169,7 @@ Appcelerator.Widget.Content =
 					resp.responseText.evalScripts();
 					Appcelerator.Compiler.compileElement(target.firstChild,state);
 					state.scanned=true;
-					Appcelerator.Compiler.checkLoadState(target);
+					Appcelerator.Compiler.checkLoadState(state);
 				}
 			});
 		}
@@ -182,7 +188,6 @@ Appcelerator.Widget.Content =
 				Appcelerator.Compiler.getAndEnsureId(doc);
 				var contentHTML = doc.innerHTML;
 				var state = Appcelerator.Compiler.createCompilerState();
-				target.state = state;
 				var html = '<div>'+contentHTML.stripScripts()+'</div>';
 				if (args)
 				{
@@ -205,7 +210,7 @@ Appcelerator.Widget.Content =
 				contentHTML.evalScripts();
 				Appcelerator.Compiler.compileElement(target.firstChild,state);
 				state.scanned=true;
-				Appcelerator.Compiler.checkLoadState(target);
+				Appcelerator.Compiler.checkLoadState(state);
 			},true,true);
 		}
 	}

@@ -1,0 +1,18 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01//EN" "http://www.w3.org/TR/html4/strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:app="http://www.appcelerator.org" >
+<body>
+  Mixed Render
+	  <app:iterator property="rows" on="r:get.votes.response then execute">
+	    <html:div id="vote_#{id}">
+        <html:span id="voteid_#{id}"style="font-wieght:bold">#{id}</html:span> <html:a id="votescore_#{id}" class="click_vote" style='color:red;text-decoration:none' on="click then script[alert('whoa')]">#{score}</html:a>
+      </html:div>
+	  </app:iterator>
+	  <app:script on="r:get.votes.response then execute after 5">
+	    $MQ('l:mixed.loaded');
+	  </app:script>
+	  <app:script>
+	    console.log('hitting the service now');
+	    $MQ('r:get.votes.request');
+	  </app:script>
+</body>
+</html>

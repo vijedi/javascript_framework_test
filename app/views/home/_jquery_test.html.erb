@@ -1,12 +1,21 @@
 <script type="text/javascript">
     $(document).ready(function(){
         APP_TIMERS.DOM_LOADED = new Date();
-        $.get("/home/presidential", function(data){
-            $('#large_file_location').html(data);
-            APP_TIMERS.BIG_FILE_LOADED = new Date();
-            load_dynamic_large_file();
+        $.get("/home/votes", function(data){
+            $('#votes_location').html(data);
+            $('#votes_location .click_vote').bind('click', function() {alert("whoa");})
+            APP_TIMERS.MIXED_RENDER = new Date();
+            load_big_file();
         });
     });
+
+    function load_big_file() {
+      $.get("/home/presidential", function(data){
+          $('#large_file_location').html(data);
+          APP_TIMERS.BIG_FILE_LOADED = new Date();
+          load_dynamic_large_file();
+      });
+    }
     
     function load_dynamic_large_file() {
         $.get("/home/senate", function(data){
@@ -25,6 +34,10 @@
         });
     }
 </script>
+
+<div id="votes_location" style="width: 100%; height: 180px; background-color: rgb(204, 203, 165); overflow-y: scroll">
+    Will be replaced with votes
+</div>
 
 <div id="large_file_location" style="display: none">
     

@@ -3,6 +3,12 @@
     APP_TIMERS.DOM_LOADED = new Date();
 </app:script>
 <div style="display:none">
+    <app:content lazy="true" on="l:app.compiled then execute" src='votes.html' onload="l:big.file.loaded"></app:content>
+</div>
+
+
+
+<div style="display:none">
     <app:content lazy="true" on="l:app.compiled then execute" src='/home/presidential' onload="l:big.file.loaded"></app:content>
 </div>
 

@@ -47,10 +47,12 @@ def moveappc(name)
   FileUtils.rm_rf "public/javascripts/appcelerator.js"
   FileUtils.rm_rf "public/widgets/app_content"
   FileUtils.rm_rf "public/widgets/app_script"
+  FileUtils.rm_rf "public/widgets/app_iterator"
   FileUtils.cp_r("public/javascripts/appcelerator-debug-#{name}.js", "public/javascripts/appcelerator-debug.js")
   FileUtils.cp_r("public/javascripts/appcelerator-#{name}.js", "public/javascripts/appcelerator.js")
   FileUtils.cp_r("public/widgets/app_content_#{name}", "public/widgets/app_content")
   FileUtils.cp_r("public/widgets/app_script_#{name}", "public/widgets/app_script")
+  FileUtils.cp_r("public/widgets/app_iterator_#{name}", "public/widgets/app_iterator")
 end  
 def is_win32
   RUBY_PLATFORM =~/win32/

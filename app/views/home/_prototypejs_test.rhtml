@@ -1,6 +1,8 @@
 <script type="text/javascript">
     Event.observe(window, 'dom:loaded', function() {
         APP_TIMERS.DOM_LOADED = new Date();
+        //TODO: implement the mixed render for prototype
+        APP_TIMERS.MIXED_RENDER = new Date();
         new Ajax.Updater('large_file_location', '/home/presidential', { 
                 onComplete: function(transport) {
                     APP_TIMERS.BIG_FILE_LOADED = new Date();

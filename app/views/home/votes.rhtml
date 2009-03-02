@@ -1,0 +1,6 @@
+Mixed Render
+<% @rows.each do |vote| %>
+  <div id="vote_<%= vote[:id] %>">
+    <span id="voteid_<%= vote[:id] %>"style="font-wieght:bold"><%= vote[:id] %></span> <span class="click_vote" id="votescore_<%= vote[:id] %>" style='color:red'><%= vote[:score] %></span>
+  </div>
+<% end %>

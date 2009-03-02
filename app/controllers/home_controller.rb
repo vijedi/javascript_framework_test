@@ -58,4 +58,19 @@ class HomeController < ApplicationController
     def blank
         
     end
+    def votes
+      items = 40
+      if !(params[:items].nil?)
+        items = params[:items].to_i
+      end
+      rows = Array.new
+      items.times do |i|
+        score = "for"
+        if (i % 2 == 0)
+          score = "against"
+        end
+        rows.push({:id => i,:score => score})
+      end
+      @rows = rows
+    end
 end

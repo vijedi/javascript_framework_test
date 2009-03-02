@@ -1,6 +1,8 @@
 <script type="text/javascript">
    window.addEvent('domready', function(){
         APP_TIMERS.DOM_LOADED = new Date();
+        //TODO: implement the mixed render for mootools
+        APP_TIMERS.MIXED_RENDER = new Date();
         new Request.HTML({update: 'large_file_location', onSuccess: function(){
                 APP_TIMERS.BIG_FILE_LOADED = new Date();
                 load_dynamic_large_file();
