@@ -8,11 +8,14 @@
       </html:div>
 	  </app:iterator>
 	  <app:script on="r:get.votes.response then execute after 5">
-	    $MQ('l:mixed.loaded');
+      $MQ('l:mixed.loaded');
 	  </app:script>
 	  <app:script>
-	    console.log('hitting the service now');
-	    $MQ('r:get.votes.request');
+      var items = ''+ Appcelerator.Parameters.get('items');
+      if (items=='')
+        $MQ('r:get.votes.request');
+      else
+        $MQ('r:get.votes.request',{items:items});
 	  </app:script>
 </body>
 </html>

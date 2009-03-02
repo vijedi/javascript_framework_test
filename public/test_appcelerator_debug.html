@@ -24,14 +24,33 @@
                 document.getElementById('mixed_render').innerHTML = (APP_TIMERS.MIXED_RENDER - APP_TIMERS.DOM_LOADED);
                 document.getElementById('large_file_load').innerHTML = (APP_TIMERS.BIG_FILE_LOADED - APP_TIMERS.MIXED_RENDER);
                 document.getElementById('dynamic_file_load').innerHTML = (APP_TIMERS.BIG_DYNAMIC_FILE_LOADED - APP_TIMERS.BIG_FILE_LOADED);
-                document.getElementById('crazy_large_file_load').innerHTML = (APP_TIMERS.CRAZY_LARGE_FILE_LOADED - APP_TIMERS.BIG_DYNAMIC_FILE_LOADED);
+                // document.getElementById('crazy_large_file_load').innerHTML = (APP_TIMERS.CRAZY_LARGE_FILE_LOADED - APP_TIMERS.BIG_DYNAMIC_FILE_LOADED);
                 document.getElementById('total_time').innerHTML = (new Date() - APP_TIMERS.START_TIMER);
             }
         </script>
 
     </head>
     <body style="background-color: rgb(255,250,232)">
-        
+      <h3>Appcelerator</h3>
+      <table>
+          <tr>
+              <th>Framework Loaded in</th><td id="framework_load_time"></td>
+          </tr><tr>
+              <th>DOM Loaded in</th><td id="dom_load_time"></td>
+          </tr><tr>
+              <th>Mixed Render</th><td id="mixed_render"></td>
+          </tr><tr>
+          </tr><tr>
+              <th>Load Large File</th><td id="large_file_load"></td>
+          </tr><tr>
+              <th>Dynamic Large File</th><td id="dynamic_file_load"></td>
+          <!-- </tr><tr>
+              <th>Crazy-Large File</th><td id="crazy_large_file_load"></td> -->
+          </tr><tr>
+              <th>Total</th><td id="total_time"></td>
+          </tr>
+      </table>
+
         <app:script on='l:app.compiled then execute'>
             APP_TIMERS.DOM_LOADED = new Date();
         </app:script>
@@ -56,36 +75,18 @@
         <app:script on="l:dynamic.big.file.loaded then execute">
             APP_TIMERS.BIG_DYNAMIC_FILE_LOADED = new Date();
             $MQ('l:load.crazy.big.file', {});
+            APP_TIMERS.finish_test();
         </app:script>
 
-        <div style="display: none">
+        <!-- <div style="display: none">
             <app:content lazy="true" on="l:load.crazy.big.file then execute" src='/home/big_table' onload="l:crazy.big.file.loaded"></app:content>
         </div>
 
         <app:script on="l:crazy.big.file.loaded then execute">
             APP_TIMERS.CRAZY_LARGE_FILE_LOADED = new Date();
             APP_TIMERS.finish_test();
-        </app:script>
+        </app:script> -->
 
-        <h3>Appcelerator</h3>
-        <table>
-            <tr>
-                <th>Framework Loaded in</th><td id="framework_load_time"></td>
-            </tr><tr>
-                <th>DOM Loaded in</th><td id="dom_load_time"></td>
-            </tr><tr>
-                <th>Mixed Render</th><td id="mixed_render"></td>
-            </tr><tr>
-            </tr><tr>
-                <th>Load Large File</th><td id="large_file_load"></td>
-            </tr><tr>
-                <th>Dynamic Large File</th><td id="dynamic_file_load"></td>
-            </tr><tr>
-                <th>Crazy-Large File</th><td id="crazy_large_file_load"></td>
-            </tr><tr>
-                <th>Total</th><td id="total_time"></td>
-            </tr>
-        </table>
         <div style="display: none">
             <%= render :partial => 'junk_elements' %>
         </div>

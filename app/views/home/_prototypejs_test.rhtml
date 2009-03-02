@@ -1,5 +1,5 @@
 <script type="text/javascript">
-    Event.observe(window, 'dom:loaded', function() {
+    Event.observe(window, 'load', function() {
         APP_TIMERS.DOM_LOADED = new Date();
         //TODO: implement the mixed render for prototype
         APP_TIMERS.MIXED_RENDER = new Date();
@@ -22,19 +22,20 @@
                     });
                 }
                 APP_TIMERS.BIG_DYNAMIC_FILE_LOADED = new Date();
-                load_crazy_big_file();
+                APP_TIMERS.finish_test();
+                // load_crazy_big_file();
             }
         });
     }
     
-    function load_crazy_big_file() {
-        new Ajax.Updater('crazy_large_file', '/home/big_table', {
-            onComplete: function(transport) {
-                APP_TIMERS.CRAZY_LARGE_FILE_LOADED = new Date();
-                APP_TIMERS.finish_test();
-            }
-        });
-    }
+    // function load_crazy_big_file() {
+    //     new Ajax.Updater('crazy_large_file', '/home/big_table', {
+    //         onComplete: function(transport) {
+    //             APP_TIMERS.CRAZY_LARGE_FILE_LOADED = new Date();
+    //             APP_TIMERS.finish_test();
+    //         }
+    //     });
+    // }
     
 </script>
 <div id="large_file_location" style="display: none">

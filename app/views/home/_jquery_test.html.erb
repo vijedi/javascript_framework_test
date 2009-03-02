@@ -1,7 +1,7 @@
 <script type="text/javascript">
     $(document).ready(function(){
         APP_TIMERS.DOM_LOADED = new Date();
-        $.get("/home/votes", function(data){
+        $.get("/home/votes?items=<%= params[:items]%>", function(data){
             $('#votes_location').html(data);
             $('#votes_location .click_vote').bind('click', function() {alert("whoa");})
             APP_TIMERS.MIXED_RENDER = new Date();
@@ -22,17 +22,18 @@
             $('#dynamic_large_file_location').html(data);
             $('#dynamic_large_file_location .style43').bind('click', function() {alert("you clicked?");})
             APP_TIMERS.BIG_DYNAMIC_FILE_LOADED = new Date();
-            load_crazy_big_file();
+            APP_TIMERS.finish_test();
+            // load_crazy_big_file();
         });
     }
     
-    function load_crazy_big_file() {
-        $.get("/home/big_table", function(data){
-            $('#crazy_large_file').html(data);
-            APP_TIMERS.CRAZY_LARGE_FILE_LOADED = new Date();
-            APP_TIMERS.finish_test();
-        });
-    }
+    // function load_crazy_big_file() {
+    //     $.get("/home/big_table", function(data){
+    //         $('#crazy_large_file').html(data);
+    //         APP_TIMERS.CRAZY_LARGE_FILE_LOADED = new Date();
+    //         APP_TIMERS.finish_test();
+    //     });
+    // }
 </script>
 
 <div id="votes_location" style="width: 100%; height: 180px; background-color: rgb(204, 203, 165); overflow-y: scroll">
