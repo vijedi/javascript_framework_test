@@ -34,22 +34,60 @@
                 processes each element by default.
             </p>
         </div>
-        <div class="test">
-            <div><a href="/home/prototypejs?items=30" target="prototype_frame">Run Test for PrototypeJS</a> <a href="/home/prototypejs?debug=true&items=30" target="prototype_frame">debug</a></div>
-            <iframe src="/home/blank" name="prototype_frame" style="border: 1px solid #999; width: 800px; height: 400px"></iframe>
+        <div>
+          parameters
+          <table>
+            <tr>
+              <td>number of items in mixed render</td>
+              <td><input id="mixrender_items" type="text" value="30"/></td>
+            </tr>
+            <tr>
+              <td>run as debug</td>
+              <td><input id="run_debug" type="checkbox"/></td>
+            </tr>
+            <tr>
+              <td>include crazy large file test</td>
+              <td><input id="test_crazylargefile" type="checkbox"/></td>
+            </tr>
+          </table>
         </div>
         <div class="test">
-            <div><a href="/home/jquery?items=30" target="jquery_frame">Run Test for Jquery</a> <a href="/home/jquery?debug=true&items=30" target="jquery_frame">debug</a></div>
-            <iframe src="/home/blank"  name="jquery_frame" style="border: 1px solid #999; width: 800px; height: 400px"></iframe>
+            <div><a onclick="runtarget('prototypejs')">Run Test for PrototypeJS</a></div>
+            <iframe id="prototypejs_frame" src="/home/blank" name="prototype_frame" style="border: 1px solid #999; width: 800px; height: 400px"></iframe>
         </div>
         <div class="test">
-            <div><a href="/home/mootools?items=30" target="mootools_frame">Run Test for Mootools</a> <a href="/home/mootools?debug=true&items=30" target="mootools_frame">debug</a></div>
-            <iframe src="/home/blank"  name="mootools_frame" style="border: 1px solid #999; width: 800px; height: 400px"></iframe>
+            <div><a onclick="runtarget('jquery')">Run Test for Jquery</a></div>
+            <iframe id="jquery_frame" src="/home/blank"  name="jquery_frame" style="border: 1px solid #999; width: 800px; height: 400px"></iframe>
         </div>
         <div class="test">
-            <div><a href="test_appcelerator.html?items=30" target="appcelerator_frame">Run Test for Appcelerator</a> <a href="test_appcelerator_debug.html?items=30" target="appcelerator_frame">debug</a></div>
-            <iframe src="/home/blank"  name="appcelerator_frame" style="border: 1px solid #999; width: 800px; height: 400px"></iframe>
+            <div><a onclick="runtarget('mootools')">Run Test for Mootools</a></div>
+            <iframe id="mootools_frame" src="/home/blank"  name="mootools_frame" style="border: 1px solid #999; width: 800px; height: 400px"></iframe>
         </div>
-
+        <div class="test">
+            <div><a onclick="runtarget('appcelerator')">Run Test for Appcelerator</a></div>
+            <iframe id="appcelerator_frame" src="/home/blank"  name="appcelerator_frame" style="border: 1px solid #999; width: 800px; height: 400px"></iframe>
+        </div>
+        <script>
+          function $(id) { return document.getElementById(id); }
+          function runtarget(framework) {
+            var debug = 'false';
+            if ($('run_debug').checked ==true)
+              debug = 'true';
+            var test_crazylargefile = 'false';
+            if ($('test_crazylargefile').checked ==true)
+              test_crazylargefile = 'true';
+            var items = $('mixrender_items').value;
+            var frame = $(framework+'_frame')
+            if (framework=='appcelerator') {
+              if (debug=='true') {
+                frame.src='test_appcelerator_debug.html?items='+items+'&test_crazylargefile='+test_crazylargefile;
+              } else {
+                frame.src='test_appcelerator.html?items='+items+'&test_crazylargefile='+test_crazylargefile;
+              }
+            } else {
+              frame.src='/home/'+framework+'?items='+items+'&test_crazylargefile='+test_crazylargefile+'&debug='+debug;
+            }
+          }
+        </script>
     </body>
 </html>

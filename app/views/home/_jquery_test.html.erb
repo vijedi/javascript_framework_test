@@ -22,18 +22,24 @@
             $('#dynamic_large_file_location').html(data);
             $('#dynamic_large_file_location .style43').bind('click', function() {alert("you clicked?");})
             APP_TIMERS.BIG_DYNAMIC_FILE_LOADED = new Date();
+            <% if (params[:test_crazylargefile]=='true') %>
+            load_crazy_big_file();
+            <% else %>
+            APP_TIMERS.CRAZY_LARGE_FILE_LOADED=APP_TIMERS.BIG_DYNAMIC_FILE_LOADED;
             APP_TIMERS.finish_test();
-            // load_crazy_big_file();
+            <% end %>
         });
     }
+    <% if (params[:test_crazylargefile]=='true') %>
     
-    // function load_crazy_big_file() {
-    //     $.get("/home/big_table", function(data){
-    //         $('#crazy_large_file').html(data);
-    //         APP_TIMERS.CRAZY_LARGE_FILE_LOADED = new Date();
-    //         APP_TIMERS.finish_test();
-    //     });
-    // }
+    function load_crazy_big_file() {
+        $.get("/home/big_table", function(data){
+            $('#crazy_large_file').html(data);
+            APP_TIMERS.CRAZY_LARGE_FILE_LOADED = new Date();
+            APP_TIMERS.finish_test();
+        });
+    }
+    <% end %>
 </script>
 
 <div id="votes_location" style="width: 100%; height: 180px; background-color: rgb(204, 203, 165); overflow-y: scroll">

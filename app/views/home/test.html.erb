@@ -24,7 +24,7 @@
                 document.getElementById('mixed_render').innerHTML = (APP_TIMERS.MIXED_RENDER - APP_TIMERS.DOM_LOADED);
                 document.getElementById('large_file_load').innerHTML = (APP_TIMERS.BIG_FILE_LOADED - APP_TIMERS.MIXED_RENDER);
                 document.getElementById('dynamic_file_load').innerHTML = (APP_TIMERS.BIG_DYNAMIC_FILE_LOADED - APP_TIMERS.BIG_FILE_LOADED);
-                // document.getElementById('crazy_large_file_load').innerHTML = (APP_TIMERS.CRAZY_LARGE_FILE_LOADED - APP_TIMERS.BIG_DYNAMIC_FILE_LOADED);
+                document.getElementById('crazy_large_file_load').innerHTML = (APP_TIMERS.CRAZY_LARGE_FILE_LOADED - APP_TIMERS.BIG_DYNAMIC_FILE_LOADED);
                 document.getElementById('total_time').innerHTML = (new Date() - APP_TIMERS.START_TIMER);
             }
         </script>
@@ -43,8 +43,8 @@
                 <th>Load Large File</th><td id="large_file_load"></td>
             </tr><tr>
                 <th>Dynamic Large File</th><td id="dynamic_file_load"></td>
-            <!-- </tr><tr>
-                <th>Crazy-Large File</th><td id="crazy_large_file_load"></td> -->
+            </tr><tr>
+                <th>Crazy-Large File</th><td id="crazy_large_file_load"></td>
             </tr><tr>
                 <th>Total</th><td id="total_time"></td>
             </tr>

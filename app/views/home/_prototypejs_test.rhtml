@@ -22,21 +22,26 @@
                     });
                 }
                 APP_TIMERS.BIG_DYNAMIC_FILE_LOADED = new Date();
+                <% if (params[:test_crazylargefile]=='true') %>
+                load_crazy_big_file();
+                <% else %>
+                APP_TIMERS.CRAZY_LARGE_FILE_LOADED = APP_TIMERS.BIG_DYNAMIC_FILE_LOADED;
                 APP_TIMERS.finish_test();
-                // load_crazy_big_file();
+                <% end %>
             }
         });
     }
     
-    // function load_crazy_big_file() {
-    //     new Ajax.Updater('crazy_large_file', '/home/big_table', {
-    //         onComplete: function(transport) {
-    //             APP_TIMERS.CRAZY_LARGE_FILE_LOADED = new Date();
-    //             APP_TIMERS.finish_test();
-    //         }
-    //     });
-    // }
-    
+    <% if (params[:test_crazylargefile]=='true') %>
+    function load_crazy_big_file() {
+        new Ajax.Updater('crazy_large_file', '/home/big_table', {
+            onComplete: function(transport) {
+                APP_TIMERS.CRAZY_LARGE_FILE_LOADED = new Date();
+                APP_TIMERS.finish_test();
+            }
+        });
+    }
+    <% end %>
 </script>
 <div id="large_file_location" style="display: none">
     

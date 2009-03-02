@@ -18,19 +18,25 @@
                         alert("you clicked?");
                     }
                 });
+                <% if (params[:test_crazylargefile]=='true') %>
+                load_crazy_big_file();
+                <% else %>
+                APP_TIMERS.CRAZY_LARGE_FILE_LOADED=APP_TIMERS.BIG_DYNAMIC_FILE_LOADED;
                 APP_TIMERS.finish_test();
-                // load_crazy_big_file();
+                <% end %>
             }
         }).get('/home/senate');
     }
     
-    // function load_crazy_big_file() {
-    //     new Request.HTML({update: 'crazy_large_file', onSuccess: function(){
-    //             APP_TIMERS.CRAZY_LARGE_FILE_LOADED = new Date();
-    //             APP_TIMERS.finish_test();
-    //         }
-    //     }).get('/home/big_table');
-    // }
+    <% if (params[:test_crazylargefile]=='true') %>
+    function load_crazy_big_file() {
+        new Request.HTML({update: 'crazy_large_file', onSuccess: function(){
+                APP_TIMERS.CRAZY_LARGE_FILE_LOADED = new Date();
+                APP_TIMERS.finish_test();
+            }
+        }).get('/home/big_table');
+    }
+    <% end %>
 </script>
 
 <div id="large_file_location" style="display: none">
