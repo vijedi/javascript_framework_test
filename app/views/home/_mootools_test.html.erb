@@ -1,15 +1,24 @@
 <script type="text/javascript">
    window.addEvent('domready', function(){
         APP_TIMERS.DOM_LOADED = new Date();
-        //TODO: implement the mixed render for mootools
-        APP_TIMERS.MIXED_RENDER = new Date();
-        new Request.HTML({update: 'large_file_location', onSuccess: function(){
-                APP_TIMERS.BIG_FILE_LOADED = new Date();
-                load_dynamic_large_file();
+        new Request.HTML({update: 'votes_location', onSuccess: function(){
+                $('votes_location').getElements('.click_vote').addEvents({
+                    'click': function(){
+                        alert("whoa");
+                    }
+                });
+                APP_TIMERS.MIXED_RENDER = new Date();
+                load_big_file();
             }
-        }).get('/home/presidential');
+        }).get('/home/votes');
     });
-    
+    function load_big_file() {
+      new Request.HTML({update: 'large_file_location', onSuccess: function(){
+              APP_TIMERS.BIG_FILE_LOADED = new Date();
+              load_dynamic_large_file();
+          }
+      }).get('/home/presidential');
+    }
     function load_dynamic_large_file() {
         new Request.HTML({update: 'dynamic_large_file_location', onSuccess: function(){
                 APP_TIMERS.BIG_DYNAMIC_FILE_LOADED = new Date();
@@ -38,6 +47,10 @@
     }
     <% end %>
 </script>
+
+<div id="votes_location" style="width: 100%; height: 180px;  background-color: rgb(204, 203, 165); overflow-y: scroll">
+    
+</div>
 
 <div id="large_file_location" style="display: none">
     

@@ -1,17 +1,29 @@
 <script type="text/javascript">
     Event.observe(window, 'load', function() {
         APP_TIMERS.DOM_LOADED = new Date();
-        //TODO: implement the mixed render for prototype
-        APP_TIMERS.MIXED_RENDER = new Date();
-        new Ajax.Updater('large_file_location', '/home/presidential', { 
+        new Ajax.Updater('votes_location', '/home/votes', { 
                 onComplete: function(transport) {
-                    APP_TIMERS.BIG_FILE_LOADED = new Date();
-                    load_dynamic_large_file();
+                    var elements = $('votes_location').select('.click_vote');
+                    for( var i = 0, length = elements.length; i < length; i++) {
+                        elements[i].observe('click', function() {
+                            alert('whoa');
+                        });
+                    }
+                    APP_TIMERS.MIXED_RENDER = new Date();
+                    load_big_file();
                 }
             }
         );
     });
-    
+    function load_big_file() {
+      new Ajax.Updater('large_file_location', '/home/presidential', { 
+              onComplete: function(transport) {
+                  APP_TIMERS.BIG_FILE_LOADED = new Date();
+                  load_dynamic_large_file();
+              }
+          }
+      );
+    }
     function load_dynamic_large_file() {
         new Ajax.Updater('dynamic_large_file_location', '/home/senate', {
             onComplete: function(transport) {
@@ -45,6 +57,9 @@
 </script>
 <div id="large_file_location" style="display: none">
     
+</div>
+<div id="votes_location" style="width: 100%; height: 180px; background-color: rgb(204, 203, 165); overflow-y: scroll">
+    Will be replaced with table
 </div>
 
 <div id="dynamic_large_file_location" style="width: 100%; height: 180px; background-color: rgb(204, 203, 165); overflow-y: scroll">
