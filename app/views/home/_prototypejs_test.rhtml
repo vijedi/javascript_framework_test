@@ -1,7 +1,7 @@
 <script type="text/javascript">
     Event.observe(window, 'load', function() {
         APP_TIMERS.DOM_LOADED = new Date();
-        new Ajax.Updater('votes_location', '/home/votes', { 
+        new Ajax.Updater('votes_location', '/home/votes?items=<%= params[:items]%>', { 
                 onComplete: function(transport) {
                     var elements = $('votes_location').select('.click_vote');
                     for( var i = 0, length = elements.length; i < length; i++) {
