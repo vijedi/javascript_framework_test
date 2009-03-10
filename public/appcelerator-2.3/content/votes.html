@@ -2,7 +2,7 @@
 <html xmlns="http://www.w3.org/1999/xhtml" xmlns:app="http://www.appcelerator.org" >
 <body>
   Mixed Render
-	  <div set="control[iterator,property=rows]" on="r:get.votes.response then execute">
+	  <div control="iterator[property=rows]" on="r:get.votes.response then execute">
 	    <div id="vote_#{id}">
         <span id="voteid_#{id}"style="font-wieght:bold">#{id}</span> <a id="votescore_#{id}" class="click_vote" style='color:red;text-decoration:none' on="click then script[alert('whoa')]">#{score}</a>
       </div>
