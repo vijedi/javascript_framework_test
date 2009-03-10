@@ -1,0 +1,67 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01//EN" "http://www.w3.org/TR/html4/strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:app="http://www.appcelerator.org/">
+    <head>
+        <title>Test Appcelerator</title>
+        
+        <style type="text/css">
+            th {text-align: left; width: 171;}
+            tr {border-bottom: 1px solid #333;}
+            .style43 {color: red}
+        </style>
+        
+        <script type="text/javascript">
+            APP_TIMERS = {};
+            APP_TIMERS.START_TIMER = new Date();
+        </script>
+        <script type="text/javascript" src="javascripts/entourage.js"></script>
+        <script type="text/javascript" src="javascripts/application.js"></script>
+        <script type="text/javascript">
+            APP_TIMERS.FRAMEWORK_LOADED = new Date();
+            
+            APP_TIMERS.finish_test = function() {
+                document.getElementById('framework_load_time').innerHTML = (APP_TIMERS.FRAMEWORK_LOADED - APP_TIMERS.START_TIMER);
+                document.getElementById('dom_load_time').innerHTML = (APP_TIMERS.DOM_LOADED - APP_TIMERS.FRAMEWORK_LOADED);
+                document.getElementById('mixed_render').innerHTML = (APP_TIMERS.MIXED_RENDER - APP_TIMERS.DOM_LOADED);
+                document.getElementById('large_file_load').innerHTML = (APP_TIMERS.BIG_FILE_LOADED - APP_TIMERS.MIXED_RENDER);
+                document.getElementById('dynamic_file_load').innerHTML = (APP_TIMERS.BIG_DYNAMIC_FILE_LOADED - APP_TIMERS.BIG_FILE_LOADED);
+                document.getElementById('crazy_large_file_load').innerHTML = (APP_TIMERS.CRAZY_LARGE_FILE_LOADED - APP_TIMERS.BIG_DYNAMIC_FILE_LOADED);
+                document.getElementById('total_time').innerHTML = (new Date() - APP_TIMERS.START_TIMER);
+            }
+        </script>
+
+    </head>
+    <body style="background-color: rgb(255,250,232)">
+      <h3>Appcelerator</h3>
+      <table>
+          <tr>
+              <th>Framework Loaded in</th><td id="framework_load_time"></td>
+          </tr><tr>
+              <th>DOM Loaded in</th><td id="dom_load_time"></td>
+          </tr><tr>
+              <th>Mixed Render</th><td id="mixed_render"></td>
+          </tr><tr>
+          </tr><tr>
+              <th>Load Large File</th><td id="large_file_load"></td>
+          </tr><tr>
+              <th>Dynamic Large File</th><td id="dynamic_file_load"></td>
+          </tr><tr>
+              <th>Crazy-Large File</th><td id="crazy_large_file_load"></td>
+          </tr><tr>
+              <th>Total</th><td id="total_time"></td>
+          </tr>
+      </table>
+
+        <div style="width: 100%; height: 180px; background-color: rgb(204, 203, 165); overflow-y: scroll">
+            <div set="control[content,onload=l:votes.loaded,lazy=true,useframe=false,src='content/votes.html']" on="l:app.compiled then execute"></div>
+        </div>
+        <div style="display:none">
+            <div set="control[content,onload=l:big.file.loaded,lazy=true,src=/home/presidential]" on="l:load.big.file then execute"></div>
+        </div>
+        <div style="width: 100%; height: 180px; background-color: rgb(204, 203, 165); overflow-y: scroll">
+            <div set="control[content,onload=l:dynamic.big.file.loaded,lazy=true,src=/home/senate_appcelerator]" on="l:load.dynamic.big.file then execute"></div>
+        </div>
+        <div style="display: none">
+            <div set="control[content,onload=l:crazy.big.file.loaded,lazy=true,src=/home/big_table]" on="l:load.crazy.big.file then execute"></div>
+        </div>
+    </body>
+</html>

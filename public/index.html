@@ -64,7 +64,14 @@
             <iframe id="mootools_frame" src="/home/blank"  name="mootools_frame" style="border: 1px solid #999; width: 800px; height: 400px"></iframe>
         </div>
         <div class="test">
-            <div><a onclick="runtarget('appcelerator')">Run Test for Appcelerator</a></div>
+            <div>
+              <a onclick="runtarget('appcelerator')">Run Test for Appcelerator</a> 
+              <select id="appcelerator_version">
+                <!-- <option selected="true" id="2.2.1">2.2.1</option> -->
+                <option id="ptek">ptek</option>
+                <option id="2.3">2.3</option>
+              </select>
+            </div>
             <iframe id="appcelerator_frame" src="/home/blank"  name="appcelerator_frame" style="border: 1px solid #999; width: 800px; height: 400px"></iframe>
         </div>
         <script>
@@ -78,11 +85,13 @@
               test_crazylargefile = 'true';
             var items = $('mixrender_items').value;
             var frame = $(framework+'_frame')
+            var version = $('appcelerator_version').options[$('appcelerator_version').selectedIndex].id;
+            console.log('gots version '+version);
             if (framework=='appcelerator') {
               if (debug=='true') {
-                frame.src='test_appcelerator_debug.html?items='+items+'&test_crazylargefile='+test_crazylargefile;
+                frame.src='/appcelerator-'+version+'/test-debug.html?items='+items+'&test_crazylargefile='+test_crazylargefile;
               } else {
-                frame.src='test_appcelerator.html?items='+items+'&test_crazylargefile='+test_crazylargefile;
+                frame.src='/appcelerator-'+version+'/test.html?items='+items+'&test_crazylargefile='+test_crazylargefile;
               }
             } else {
               frame.src='/home/'+framework+'?items='+items+'&test_crazylargefile='+test_crazylargefile+'&debug='+debug;
