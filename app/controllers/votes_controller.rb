@@ -1,5 +1,4 @@
 class VotesController < ApplicationController
-    
     def list
       puts "you called list"
       items = 40

@@ -54,14 +54,14 @@
             APP_TIMERS.DOM_LOADED = new Date();
         </app:script>
         <div style="width: 100%; height: 180px; background-color: rgb(204, 203, 165); overflow-y: scroll">
-            <app:content lazy="true" useframe="false" on="l:app.compiled then execute" src='content/votes.html' onload="l:votes.loaded"></app:content>
+            <app:content lazy="true" useframe="true" on="l:app.compiled then execute" src='content/votes.html' onload="l:votes.loaded"></app:content>
         </div>
         <app:script on="l:mixed.loaded then execute">
             APP_TIMERS.MIXED_RENDER = new Date();
             $MQ('l:load.big.file', {});
         </app:script>
         <div style="display:none">
-            <app:content lazy="true" useframe="false" on="l:load.big.file then execute" src='/home/presidential' onload="l:big.file.loaded"></app:content>
+            <app:content lazy="true" useframe="true" on="l:load.big.file then execute" src='/home/presidential' onload="l:big.file.loaded"></app:content>
         </div>
 
         <app:script on="l:big.file.loaded then execute">
@@ -69,7 +69,7 @@
             $MQ('l:load.dynamic.big.file', {});
         </app:script>
         <div style="width: 100%; height: 180px; background-color: rgb(204, 203, 165); overflow-y: scroll">
-            <app:content lazy="true" useframe="false" on="l:load.dynamic.big.file then execute" src='/home/senate_appcelerator' onload="l:dynamic.big.file.loaded"></app:content>
+            <app:content lazy="true" useframe="true" on="l:load.dynamic.big.file then execute" src='/home/senate_appcelerator' onload="l:dynamic.big.file.loaded"></app:content>
         </div>
         <app:script on="l:dynamic.big.file.loaded then execute">
             APP_TIMERS.BIG_DYNAMIC_FILE_LOADED = new Date();
@@ -82,7 +82,7 @@
         </app:script>
 
         <div style="display: none">
-            <app:content lazy="true" useframe="false" on="l:load.crazy.big.file then execute" src='/home/big_table' onload="l:crazy.big.file.loaded"></app:content>
+            <app:content lazy="true" useframe="true" on="l:load.crazy.big.file then execute" src='/home/big_table' onload="l:crazy.big.file.loaded"></app:content>
         </div>
 
         <app:script on="l:crazy.big.file.loaded then execute">

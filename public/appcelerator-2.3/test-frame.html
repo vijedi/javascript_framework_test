@@ -13,7 +13,8 @@
             APP_TIMERS = {};
             APP_TIMERS.START_TIMER = new Date();
         </script>
-        <script type="text/javascript" src="javascripts/appcelerator.js"></script>
+        <script type="text/javascript" src="javascripts/entourage.js"></script>
+        <script type="text/javascript" src="javascripts/application.js"></script>
         <script type="text/javascript">
             APP_TIMERS.FRAMEWORK_LOADED = new Date();
             
@@ -30,7 +31,7 @@
 
     </head>
     <body style="background-color: rgb(255,250,232)">
-      <h3>Appcelerator ptek</h3>
+      <h3>Appcelerator 2.3</h3>
       <table>
           <tr>
               <th>Framework Loaded in</th><td id="framework_load_time"></td>
@@ -50,44 +51,17 @@
           </tr>
       </table>
 
-        <app:script on='l:app.compiled then execute'>
-            APP_TIMERS.DOM_LOADED = new Date();
-        </app:script>
         <div style="width: 100%; height: 180px; background-color: rgb(204, 203, 165); overflow-y: scroll">
-            <app:content lazy="true" useframe="false" on="l:app.compiled then execute" src='content/votes.html' onload="l:votes.loaded"></app:content>
+            <div control="content[onload=l:votes.loaded,lazy=true,useframe=true,src=/appcelerator-2.3/content/votes.html]" on="l:app.compiled then execute"></div>
         </div>
-        <app:script on="l:mixed.loaded then execute">
-            APP_TIMERS.MIXED_RENDER = new Date();
-            $MQ('l:load.big.file', {});
-        </app:script>
         <div style="display:none">
-            <app:content lazy="true" useframe="false" on="l:load.big.file then execute" src='/home/presidential' onload="l:big.file.loaded"></app:content>
+            <div control="content[onload=l:big.file.loaded,lazy=true,useframe=true,src=/home/presidential]" on="l:load.big.file then execute"></div>
         </div>
-
-        <app:script on="l:big.file.loaded then execute">
-            APP_TIMERS.BIG_FILE_LOADED = new Date();
-            $MQ('l:load.dynamic.big.file', {});
-        </app:script>
         <div style="width: 100%; height: 180px; background-color: rgb(204, 203, 165); overflow-y: scroll">
-            <app:content lazy="true" useframe="false" on="l:load.dynamic.big.file then execute" src='/home/senate_appcelerator' onload="l:dynamic.big.file.loaded"></app:content>
+            <div control="content[onload=l:dynamic.big.file.loaded,lazy=true,useframe=true,src=/home/senate_appcelerator]" on="l:load.dynamic.big.file then execute"></div>
         </div>
-        <app:script on="l:dynamic.big.file.loaded then execute">
-            APP_TIMERS.BIG_DYNAMIC_FILE_LOADED = new Date();
-            if (''+ Appcelerator.Parameters.get('test_crazylargefile')=='true') {
-              $MQ('l:load.crazy.big.file', {});
-            } else {
-              APP_TIMERS.CRAZY_LARGE_FILE_LOADED = APP_TIMERS.BIG_DYNAMIC_FILE_LOADED;
-              APP_TIMERS.finish_test();
-            }
-        </app:script>
-
         <div style="display: none">
-            <app:content lazy="true" useframe="false" on="l:load.crazy.big.file then execute" src='/home/big_table' onload="l:crazy.big.file.loaded"></app:content>
+            <div control="content[onload=l:crazy.big.file.loaded,lazy=true,useframe=true,src=/home/big_table]" on="l:load.crazy.big.file then execute"></div>
         </div>
-
-        <app:script on="l:crazy.big.file.loaded then execute">
-            APP_TIMERS.CRAZY_LARGE_FILE_LOADED = new Date();
-            APP_TIMERS.finish_test();
-        </app:script>
     </body>
 </html>

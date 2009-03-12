@@ -1,5 +1,4 @@
 <!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01//EN" "http://www.w3.org/TR/html4/strict.dtd">
-
 <html xmlns="http://www.w3.org/1999/xhtml" xmlns:app="http://www.appcelerator.org/">
     <head>
         <title>Test Appcelerator</title>
@@ -24,7 +23,7 @@
                 document.getElementById('mixed_render').innerHTML = (APP_TIMERS.MIXED_RENDER - APP_TIMERS.DOM_LOADED);
                 document.getElementById('large_file_load').innerHTML = (APP_TIMERS.BIG_FILE_LOADED - APP_TIMERS.MIXED_RENDER);
                 document.getElementById('dynamic_file_load').innerHTML = (APP_TIMERS.BIG_DYNAMIC_FILE_LOADED - APP_TIMERS.BIG_FILE_LOADED);
-                // document.getElementById('crazy_large_file_load').innerHTML = (APP_TIMERS.CRAZY_LARGE_FILE_LOADED - APP_TIMERS.BIG_DYNAMIC_FILE_LOADED);
+                document.getElementById('crazy_large_file_load').innerHTML = (APP_TIMERS.CRAZY_LARGE_FILE_LOADED - APP_TIMERS.BIG_DYNAMIC_FILE_LOADED);
                 document.getElementById('total_time').innerHTML = (new Date() - APP_TIMERS.START_TIMER);
             }
         </script>
@@ -44,8 +43,8 @@
               <th>Load Large File</th><td id="large_file_load"></td>
           </tr><tr>
               <th>Dynamic Large File</th><td id="dynamic_file_load"></td>
-          <!-- </tr><tr>
-              <th>Crazy-Large File</th><td id="crazy_large_file_load"></td> -->
+          </tr><tr>
+              <th>Crazy-Large File</th><td id="crazy_large_file_load"></td>
           </tr><tr>
               <th>Total</th><td id="total_time"></td>
           </tr>
@@ -62,7 +61,7 @@
             $MQ('l:load.big.file', {});
         </app:script>
         <div style="display:none">
-            <app:content lazy="true" on="l:load.big.file then execute" src='/home/presidential' onload="l:big.file.loaded"></app:content>
+            <app:content lazy="true" useframe="false" on="l:load.big.file then execute" src='/home/presidential' onload="l:big.file.loaded"></app:content>
         </div>
 
         <app:script on="l:big.file.loaded then execute">
@@ -70,25 +69,25 @@
             $MQ('l:load.dynamic.big.file', {});
         </app:script>
         <div style="width: 100%; height: 180px; background-color: rgb(204, 203, 165); overflow-y: scroll">
-            <app:content lazy="true" on="l:load.dynamic.big.file then execute" src='/home/senate_appcelerator' onload="l:dynamic.big.file.loaded"></app:content>
+            <app:content lazy="true" useframe="false" on="l:load.dynamic.big.file then execute" src='/home/senate_appcelerator' onload="l:dynamic.big.file.loaded"></app:content>
         </div>
         <app:script on="l:dynamic.big.file.loaded then execute">
             APP_TIMERS.BIG_DYNAMIC_FILE_LOADED = new Date();
-            $MQ('l:load.crazy.big.file', {});
-            APP_TIMERS.finish_test();
+            if (''+ Appcelerator.Parameters.get('test_crazylargefile')=='true') {
+              $MQ('l:load.crazy.big.file', {});
+            } else {
+              APP_TIMERS.CRAZY_LARGE_FILE_LOADED = APP_TIMERS.BIG_DYNAMIC_FILE_LOADED;
+              APP_TIMERS.finish_test();
+            }
         </app:script>
 
-        <!-- <div style="display: none">
-            <app:content lazy="true" on="l:load.crazy.big.file then execute" src='/home/big_table' onload="l:crazy.big.file.loaded"></app:content>
+        <div style="display: none">
+            <app:content lazy="true" useframe="false" on="l:load.crazy.big.file then execute" src='/home/big_table' onload="l:crazy.big.file.loaded"></app:content>
         </div>
 
         <app:script on="l:crazy.big.file.loaded then execute">
             APP_TIMERS.CRAZY_LARGE_FILE_LOADED = new Date();
             APP_TIMERS.finish_test();
-        </app:script> -->
-
-        <div style="display: none">
-            <%= render :partial => 'junk_elements' %>
-        </div>
+        </app:script>
     </body>
 </html>

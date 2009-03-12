@@ -67,11 +67,15 @@
             <div>
               <!-- <a href="#" onclick="runtarget('appcelerator');">Run Test for Appcelerator</a>  -->
               <a href="javascript:runtarget('appcelerator');">Run Test for Appcelerator</a> 
-              <select id="appcelerator_version">
-                <!-- <option selected="true" id="2.2.1">2.2.1</option> -->
-                <option id="ptek">ptek</option>
-                <option id="2.3">2.3</option>
-              </select>
+              <div>
+                <select id="appcelerator_version">
+                  <!-- <option selected="true" id="2.2.1">2.2.1</option> -->
+                  <option id="ptek">ptek</option>
+                  <option id="2.3">2.3</option>
+                </select>
+                <div>
+                iframe for content files <input id="use_iframe" type="checkbox"/>
+              </div>
             </div>
             <iframe id="appcelerator_frame" src="/home/blank"  name="appcelerator_frame" style="border: 1px solid #999; width: 800px; height: 400px"></iframe>
         </div>
@@ -87,11 +91,14 @@
             var items = $('mixrender_items').value;
             var frame = $(framework+'_frame')
             var version = $('appcelerator_version').options[$('appcelerator_version').selectedIndex].id;
+            var use_iframe = '';
+            if ($('use_iframe').checked ==true)
+              use_iframe = '-frame';
             if (framework=='appcelerator') {
               if (debug=='true') {
-                frame.src='/appcelerator-'+version+'/test-debug.html?items='+items+'&test_crazylargefile='+test_crazylargefile;
+                frame.src='/appcelerator-'+version+'/test'+use_iframe+'-debug.html?items='+items+'&test_crazylargefile='+test_crazylargefile;
               } else {
-                frame.src='/appcelerator-'+version+'/test.html?items='+items+'&test_crazylargefile='+test_crazylargefile;
+                frame.src='/appcelerator-'+version+'/test'+use_iframe+'.html?items='+items+'&test_crazylargefile='+test_crazylargefile;
               }
             } else {
               frame.src='/home/'+framework+'?items='+items+'&test_crazylargefile='+test_crazylargefile+'&debug='+debug;

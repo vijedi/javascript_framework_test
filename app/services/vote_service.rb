@@ -1,6 +1,6 @@
 class VoteService < Appcelerator::Service
-  Service 'get.votes2.request', :get_votes, 'get.votes2.response'
-  def get_votes2
+  Service 'get.votes.request', :get_votes, 'get.votes.response'
+  def get_votes
     items = 40
     if !(params['items'].nil?)
       items = params['items'].to_i
