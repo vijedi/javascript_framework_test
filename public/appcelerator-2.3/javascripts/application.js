@@ -52,7 +52,7 @@ $MQL('l:crazy.big.file.loaded',function(type,msg,datatype,from) {
 
 
 //votes.html content file
-$MQL('r:get.votes.response',function(type,msg,datatype,from) {
+$MQL('l:get.votes.response',function(type,msg,datatype,from) {
   setTimeout(function(){
     $MQ('l:mixed.loaded');
   }, 5);
@@ -61,7 +61,10 @@ $MQL('r:get.votes.response',function(type,msg,datatype,from) {
 $MQL('l:votes.loaded',function(type,msg,datatype,from) {
   var items = $.getURLParam("items");
   if (items=='')
-    $MQ('r:get.votes.request');
+    $MQ('l:get.votes.request');
   else
-    $MQ('r:get.votes.request',{items:items});
+    $MQ('l:get.votes.request');
 });
+
+
+$MQR('l:get.votes.request', 'l:get.votes.response', '/votes/list?items=30');
