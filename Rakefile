@@ -75,3 +75,9 @@ def call_command(cmd)
   yield(call.readlines) if block_given?
   call.close
 end
+task :copyentourage do 
+  FileUtils.cp_r("public/entourage-ui","public/appcelerator-2.3")
+  FileUtils.cp_r("public/javascripts/entourage-debug.js","public/appcelerator-2.3/javascripts")
+  FileUtils.cp_r("public/javascripts/entourage.js","public/appcelerator-2.3/javascripts")
+end
+

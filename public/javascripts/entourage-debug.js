@@ -14260,7 +14260,7 @@ App.Util.IFrame =
       iframe.name = frameid;
       var scope = {iframe:iframe,frameid:frameid,onload:onload,removeOnLoad:(removeOnLoad==null)?true:removeOnLoad,src:src,copyContent:copyContent};
       if (App.Browser.isFirefox == false) {
-        setTimeout(function(){App.Util.IFrame.checkIFrame.apply(scope)},50);
+        setTimeout(function(){App.Util.IFrame.checkIFrame.apply(scope)},100);
       } else {
         iframe.onload = function(){App.Util.IFrame.doIFrameLoad.apply(scope)};
       }
@@ -14302,7 +14302,7 @@ App.Util.IFrame =
     if (dr == 'complete' || (!document.getElementById && dr == 'interactive')) {
       App.Util.IFrame.doIFrameLoad.apply(this);
     } else {
-      setTimeout(App.Util.IFrame.checkIFrame.apply(this),10);
+      setTimeout(App.Util.IFrame.checkIFrame.apply(this),100);
     }
   },
   loadStyles:function(element)

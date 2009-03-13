@@ -1,7 +1,7 @@
 /*!(c) 2006-2009 Appcelerator, Inc. http://appcelerator.org
  * Licensed under the Apache License, Version 2.0. Please visit
  * http://license.appcelerator.com for full copy of the License.
- * Version: 2.3.0, Released: 03/04/2009
+ * Version: 2.3.0, Released: 03/12/2009
  **/
 
 /* includes: jquery, swiss, mq, wel and ui */
@@ -13626,16 +13626,16 @@ $.effects.transfer = function(o) {
 			jQuery.ajax({
   		  type: params['method'],
   		  url: params['url'],
-        beforeSend: function(xhr){
-          for(var header in params['headers']){
+        beforeSend: function(xhr) {
+          for(var header in params['headers']) {
             xhr.setRequestHeader(header, params['headers'][header]);
           }
         },
   		  data: params['data'],
-  		  success: function(data, status){
+  		  success: function(data, status) {
   		    params['success'](data);
 		    },
-  		  error: function(xhr, status, errorMsg){
+  		  error: function(xhr, status, errorMsg) {
   		    params['error'](xhr);
 		    }
 			});
@@ -14234,135 +14234,106 @@ App.Util.Logger.error = function(msg)
 
 App.Util.IFrame = 
 {
-	fetch: function(src,onload,removeOnLoad,copyContent)
-	{
-	    setTimeout(function()
-	    {
-	        copyContent = (copyContent==null) ? false : copyContent;
-	        var frameid = 'frame_'+new Date().getTime()+'_'+Math.round(Math.random() * 99);
-	        var frame = document.createElement('iframe');
-	        App.Compiler.setElementId(frame, frameid);
-	
-	        //This prevents Firefox 1.5 from getting stuck while trying to get the contents of the new iframe
-	        if(!App.Browser.isFirefox)
-	        {
-	            frame.setAttribute('name', frameid);
-	        }
-            frame.setAttribute('src',src);
-  	        frame.style.position = 'absolute';
-	        frame.style.width = frame.style.height = frame.borderWidth = '1px';
-	        // in Opera and Safari you'll need to actually show it or the frame won't load
-	        // so we just put it off screen
-	        frame.style.left = "-50px";
-	        frame.style.top = "-50px";
-	        var iframe = document.body.appendChild(frame);
-	        // this is a IE speciality
-	        if (window.frames && window.frames[frameid]) iframe = window.frames[frameid];
-	        iframe.name = frameid;
-	        var scope = {iframe:iframe,frameid:frameid,onload:onload,removeOnLoad:(removeOnLoad==null)?true:removeOnLoad,src:src,copyContent:copyContent};
-	  		if (App.Browser.isFirefox == false)
-	        {
-	            setTimeout(function(){App.Util.IFrame.checkIFrame.apply(scope)},50);
-	        }
-	        else
-	        {
-	            iframe.onload = setTimeout(function(){App.Util.IFrame.doIFrameLoad.apply(scope)},50);
-	        }
-	    },0);
-	},
-	doIFrameLoad: function()
-	{
-		var doc = this.iframe.contentDocument || this.iframe.document;
-		var body = doc.documentElement.getElementsByTagName('body')[0];
-		if (App.Browser.isSafari && App.Browser.isWindows && body.childNodes.length == 0)
-		{
-			App.Util.IFrame.fetch(this.src, this.onload, this.removeOnLoad);
-			return;
-		}
-		
-		if (this.copyContent)
-		{
-	        var div = document.createElement('div');
-	        
-	        App.Util.IFrame.loadStyles(doc.documentElement);
-	        
-	        var bodydiv = document.createElement('div');
-	        bodydiv.innerHTML = body.innerHTML;
-	        div.appendChild(bodydiv);
-	        this.onload(div);
-		}
-		else
-		{
-            this.onload(body);
-		}
-		if (this.removeOnLoad)
-		{
-			var f = swiss('#'+this.frameid).get(0);
-			if (App.Browser.isFirefox)
-			{
-				// firefox won't stop spinning with Loading... message
-				// if you remove right away
-				setTimeout(function(){f.parentNode.removeChild(f)},50);
-			}
-			else
-			{
-				f.parentNode.removeChild(f)
-			}
-		}
-	},
-	checkIFrame:function()
-	{
-		var doc = this.iframe.contentDocument || this.iframe.document;
-		var dr = doc.readyState;
-		if (dr == 'complete' || (!document.getElementById && dr == 'interactive'))
-	 	{
-	 		App.Util.IFrame.doIFrameLoad.apply(this);
-	 	}
-	 	else
-	 	{
-	  		setTimeout(App.Util.IFrame.checkIFrame.apply(this),10);
-	 	}
-	},
-	loadStyles:function(element)
-	{
-		for (var i = 0; i < element.childNodes.length; i++)
-		{
-			var node = element.childNodes[i];
+  fetch: function(src,onload,removeOnLoad,copyContent) {
+    setTimeout(function() {
+      copyContent = (copyContent==null) ? false : copyContent;
+      var frameid = 'frame_'+new Date().getTime()+'_'+Math.round(Math.random() * 99);
+      var frame = document.createElement('iframe');
+      App.Compiler.setElementId(frame, frameid);
+      //This prevents Firefox 1.5 from getting stuck while trying to get the contents of the new iframe
+      if(!App.Browser.isFirefox) {
+        frame.setAttribute('name', frameid);
+      }
+      frame.setAttribute('src', src);
+      frame.style.position = 'absolute';
+      frame.style.width = frame.style.height = frame.borderWidth = '1px';
+      // in Opera and Safari you'll need to actually show it or the frame won't load
+      // so we just put it off screen
+      frame.style.left = "-50px";
+      frame.style.top = "-50px";
+      var iframe = document.body.appendChild(frame);
 
-			if (node.nodeName == 'STYLE')
-			{
-				if (App.Browser.isIE)
-				{
-					var style = document.createStyleSheet();
-					style.cssText = node.styleSheet.cssText;
-				}
-				else
-				{
-					var style = document.createElement('style');
-					style.setAttribute('type', 'text/css');
-					try
-					{
-						style.appendChild(document.createTextNode(node.innerHTML));
-					}
-					catch (e)
-					{
-						style.cssText = node.innerHTML;
-					}				
-					document.getElementsByTagName('head')[0].appendChild(style);
-				}
-			}
-			else if (node.nodeName == 'LINK')
-			{
-				var link = document.createElement('link');
-				link.setAttribute('type', node.type);
-				link.setAttribute('rel', node.rel);
-				link.setAttribute('href', node.getAttribute('href'));
-				document.getElementsByTagName('head')[0].appendChild(link);
-			}
-			
-			App.Util.IFrame.loadStyles(node);
-		}
-	}
+      // this is a IE speciality
+      if (window.frames && window.frames[frameid]) {
+        iframe = window.frames[frameid];
+      }
+      iframe.name = frameid;
+      var scope = {iframe:iframe,frameid:frameid,onload:onload,removeOnLoad:(removeOnLoad==null)?true:removeOnLoad,src:src,copyContent:copyContent};
+      if (App.Browser.isFirefox == false) {
+        setTimeout(function(){App.Util.IFrame.checkIFrame.apply(scope)},100);
+      } else {
+        iframe.onload = function(){App.Util.IFrame.doIFrameLoad.apply(scope)};
+      }
+   },0);
+  },
+  doIFrameLoad: function() {
+    var doc = this.iframe.contentDocument || this.iframe.document;
+    var body = doc.documentElement.getElementsByTagName('body')[0];
+    
+    if (App.Browser.isSafari && App.Browser.isWindows && body.childNodes.length == 0) {
+      App.Util.IFrame.fetch(this.src, this.onload, this.removeOnLoad);
+      return;
+    }
+    if (this.copyContent) {
+      var div = document.createElement('div');
+      App.Util.IFrame.loadStyles(doc.documentElement);
+      var bodydiv = document.createElement('div');
+      bodydiv.innerHTML = body.innerHTML;
+      div.appendChild(bodydiv);
+      this.onload(div);
+    } else {
+      this.onload(body);
+    }
+    if (this.removeOnLoad) {
+			var f = swiss('#'+this.frameid).get(0);
+      if (App.Browser.isFirefox) {
+        // firefox won't stop spinning with Loading... message
+        // if you remove right away
+        setTimeout(function(){f.parentNode.removeChild(f)},50);
+      } else {
+        f.parentNode.removeChild(f);
+      }
+    }
+  },
+  checkIFrame:function()
+  {
+    var doc = this.iframe.contentDocument || this.iframe.document;
+    var dr = doc.readyState;
+    if (dr == 'complete' || (!document.getElementById && dr == 'interactive')) {
+      App.Util.IFrame.doIFrameLoad.apply(this);
+    } else {
+      setTimeout(App.Util.IFrame.checkIFrame.apply(this),100);
+    }
+  },
+  loadStyles:function(element)
+  {
+    for (var i = 0; i < element.childNodes.length; i++) {
+      var node = element.childNodes[i];
+ 
+      if (node.nodeName == 'STYLE') {
+        if (App.Browser.isIE) {
+          var style = document.createStyleSheet();
+          style.cssText = node.styleSheet.cssText;
+        } else {
+          var style = document.createElement('style');
+          style.setAttribute('type', 'text/css');
+          try {
+            style.appendChild(document.createTextNode(node.innerHTML));
+          } catch (e) {
+            style.cssText = node.innerHTML;
+          }        
+          App.Core.HeadElement.appendChild(style);
+        }
+      } else if (node.nodeName == 'LINK') {
+        var link = document.createElement('link');
+        link.setAttribute('type', node.type);
+        link.setAttribute('rel', node.rel);
+        link.setAttribute('href', node.getAttribute('href'));
+        document.getElementsByTagName('head')[0].appendChild(style);
+      }
+      App.Util.IFrame.loadStyles(node);
+    }
+  }
 };
 
 /**
@@ -14630,7 +14601,7 @@ App.Util.Dom =
                     }
                     
                     // special handling for IE styles
-                    if (Appcelerator.Browser.isIE && !skipHTMLStyles && item.name == 'style' && e.style && e.style.cssText)
+                    if (App.Browser.isIE && !skipHTMLStyles && item.name == 'style' && e.style && e.style.cssText)
                     {
                        var str = e.style.cssText;
                        xml.push(" style=\"" + str+"\"");
@@ -15665,7 +15636,7 @@ var $MQI = null;
 			else {
 				message = swiss.extend({
 					name: null,
-					payload: (data)?data:{},
+					payload: {},
 					scope: 'appcelerator'
 				},_msg_name_or_msg_object||{});
 				if (message.name == null) {
@@ -18080,24 +18051,16 @@ App.Wel.getHtml = function (element,convertHtmlPrefix)
 					}
 				});
 
-				// only one active state
-				if (active ==true)
-				{
-					this.fireStateChange(state);
-					this.activeState = state;
-					for (var i=0;i<this.states.length;i++)
-					{
-						if (this.states[i].active == true)
-						{
-							this.states[i].active = false;
-						}
-					}
-				}
+        // store state objects for each state machine
+        var stateObj = {active:false,name:state};
+        this.states.push(stateObj);
 
-				// store state objects for each state machine
-				var stateObj = {active:(active)?active:false,name:state};
-				this.states.push(stateObj);
-			};
+        // only one active state
+        if (active ==true)
+        {
+            this.fireStateChange(state);
+        }
+      };
 
 			// helper method to get current active state
 			this.getActiveState = function()
@@ -20042,7 +20005,19 @@ App.Compiler.registerAttributeProcessor('*','on',
 
     addValidator('zipcode_5', function(value)
     {
-		return (value.length == 5 && App.Validator.number(value)==true)?true:false
+      if (value.length === 5) {
+        //Non-numbers can be valid zipcodes - check each char to see
+        //if it is a number
+        if (App.Validator.number(value.charAt(0)) &&
+          App.Validator.number(value.charAt(1)) &&
+          App.Validator.number(value.charAt(2)) &&
+          App.Validator.number(value.charAt(3)) &&
+          App.Validator.number(value.charAt(4))) {
+          return true;
+        }
+      }
+      return false;
+      return (value.length == 5 && App.Validator.number(value)==true)?true:false
     });
 
     addValidator('zipcode_5_optional', function(value)
@@ -20080,8 +20055,27 @@ App.Compiler.registerAttributeProcessor('*','on',
 
     addValidator('fullname', function(value)
     {
-        // allow Jeffrey George Haynie or Jeff Haynie or Jeff Smith, Jr.
-        return ((value.split(" ")).length > 1);
+        // allow Jeffrey George Haynie or Jeff Haynie, Jeff Smith, Jr., or Kevin Whinnery the 3rd
+        // otherwise, allow any strings with spaces in between excepting numbers, except when numbers
+        // are used in 2nd or 3rd.  For now, allow punctuation in names.
+        var valid = true;
+        var tokens = value.split(" ");
+        if (tokens.length > 1) {
+          while (tokens.length > 0) {
+            var token = tokens.shift();
+            for (var i = 0; i < token.length; i=i+1) {
+              if (App.Validator.number(token.charAt(i))) {
+                if (!(token === "2nd" || token === "3rd")) {
+                  valid = false;
+                }
+              }
+            }
+          }
+        }
+        else {
+          valid = false;
+        }
+        return valid
     });
 
     addValidator('noSpaces_optional', function(value)
@@ -21764,17 +21758,32 @@ App.UI.UIManager.parseAttributes = function(element,f,options)
 	{
 		var error = false;
 		var modAttr = moduleAttributes[i];
-		var value =  options[modAttr.name] || element.style[modAttr.name] || modAttr.defaultValue;
+		switch (typeof options[modAttr.name]) {
+  		case 'boolean':
+  	    var value = options[modAttr.name];
+  	    break;
+  		default:
+  	    var value =  options[modAttr.name] || element.style[modAttr.name] || modAttr.defaultValue;
+  	    break;
+  	}
 		// check and make sure the value isn't a function as what will happen in certain
 		// situations because of prototype's fun feature of attaching crap on to the Object prototype
-		if (typeof value == 'function')
-		{
-			value = modAttr.defaultValue;
-		}
-		if (!value && !modAttr.optional)
-		{
-			App.Compiler.handleElementException(element, null, 'required attribute "' + modAttr.name + '" not defined for ' + element.id);
-			error = true;
+		switch (typeof value) {
+		  case 'function':
+			  value = modAttr.defaultValue;
+			  break;
+  		case 'string':
+        if (value.match(/^\d+$/)) {
+          value = parseInt(value)
+        }
+  		  break;
+  		case 'object':
+			case 'undefined':
+        if (!value && !modAttr.optional) {
+    			App.Compiler.handleElementException(element, null, 'required attribute "' + modAttr.name + '" not defined for ' + element.id);
+    			error = true;
+        }
+			  break;
 		}
 		options[modAttr.name] = value;
 		if (error == true)
