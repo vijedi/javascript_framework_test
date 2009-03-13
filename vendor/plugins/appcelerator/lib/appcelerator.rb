@@ -15,7 +15,7 @@
 
  
 module Appcelerator
-  VERSION = '1.0.7'
+  VERSION = '0.0.0'
 end
 
 $:.unshift "#{File.dirname(__FILE__)}"

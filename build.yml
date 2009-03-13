@@ -1,0 +1,9 @@
+--- 
+:type: service
+:dependencies: 
+- name: websdk
+  type: websdk
+:name: rails
+:version: 2.3.0
+:licenses: 
+- 6

@@ -45,6 +45,8 @@ module ServiceBroker
     # check to see if we're doing an initial request to cause the 
     # cookie to get set
     if request.parameters[:initial]
+      #place the Rails session cookie where the client will expect it
+      cookies["SESSIONID"] = session.session_id
       render :nothing => true, :status => 202
       return
     end

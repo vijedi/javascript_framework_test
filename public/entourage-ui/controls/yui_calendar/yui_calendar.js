@@ -122,7 +122,7 @@ App.UI.registerUIComponent('control','yui_calendar',
 		
 		this.getControlCSS = function()
 		{
-			return ['css/calendar.css']
+			return ['css/calendar.css', '../../common/css/jquery-themes/ui.all.css']
 		}
 		
 		this.show = function(value)

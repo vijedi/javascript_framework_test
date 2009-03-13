@@ -11,6 +11,6 @@ class ServiceBrokerController < ApplicationController
   # this value, but make sure you know why and what you're doing
   #
   def ServiceBrokerController.secret_auth_key
-    '6af50137d0a45c5ab848b4a0d1bb15ad'
+    '<%= secret_auth_key %>'
   end
 end
