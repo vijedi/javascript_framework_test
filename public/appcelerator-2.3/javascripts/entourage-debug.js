@@ -14296,15 +14296,16 @@ App.Util.IFrame =
     }
   },
   checkIFrame:function()
-  {
-    var doc = this.iframe.contentDocument || this.iframe.document;
-    var dr = doc.readyState;
-    if (dr == 'complete' || (!document.getElementById && dr == 'interactive')) {
-      App.Util.IFrame.doIFrameLoad.apply(this);
-    } else {
-      setTimeout(App.Util.IFrame.checkIFrame.apply(this),100);
-    }
-  },
+   {
+     var doc = this.iframe.contentDocument || this.iframe.document;
+     var dr = doc.readyState;
+     if (dr == 'complete' || (!document.getElementById && dr == 'interactive')) {
+       App.Util.IFrame.doIFrameLoad.apply(this);
+     } else {
+       var scope = {iframe:this.iframe,frameid:this.frameid,onload:this.onload,removeOnLoad:(this.removeOnLoad==null)?true:this.removeOnLoad,src:this.src,copyContent:this.copyContent};
+       setTimeout(function(){App.Util.IFrame.checkIFrame.apply(scope)},50);
+     }
+   },
   loadStyles:function(element)
   {
     for (var i = 0; i < element.childNodes.length; i++) {

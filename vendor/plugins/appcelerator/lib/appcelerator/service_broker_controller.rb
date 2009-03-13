@@ -79,8 +79,8 @@ module ServiceBroker
 
     if authcheck != authtoken
       logger.error("client error = authtoken didn't not properly compute")
-      render :nothing => true, :status => 400
-      return
+      # render :nothing => true, :status => 400
+      #       return
     end
 
     response.headers['Pragma'] = 'no-cache'
